@@ -34,7 +34,7 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     catch (e) {
         res.status(411).json({
-            message: "User already exists" + req.body
+            message: "User already exists" + JSON.stringify(req.body)
         });
     }
 }));
