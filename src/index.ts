@@ -9,25 +9,22 @@ const app = express();
 app.use(express.json());
 
 app.post("/api/v1/signup", async (req, res) => {
-
+    // TODO: zod validation , hash the password
     const username = req.body.username;
     const password = req.body.password;
-   
-    try {
-        const signupData = new UserModel({username:username, password: password})
 
-        await signupData.save()
-       
-         res.status(200).json({
-           message: "Successfully signed up",
-           User: {
-             username:username
-           }
-         })
+    try {
+        await UserModel.create({
+            username: username,
+            password: password
+        }) 
+
+        res.json({
+            message: "User signed up"
+        })
     } catch(e) {
         res.status(411).json({
-            message: "User already exists" +  JSON.stringify(req.body)
-           
+            message: "User already exists"
         })
     }
 })
